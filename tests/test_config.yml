@@ -1,0 +1,6 @@
+TAO_MODEL_NAME: detectnet_v2
+KEY: tlt_encode
+NUM_GPUS: 2
+USER_WORKSPACE_DIR: /workspace/tao-experiments
+CLEARML_LOGGED_IN: False
+WANDB_LOGGED_IN: False
