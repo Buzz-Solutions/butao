@@ -62,6 +62,7 @@ def set_environment(config_yaml_path, root_dir=None):
     os.makedirs(os.environ["LOCAL_EXPERIMENT_DIR"], exist_ok=True)
 
     # WANDB_API_KEY must be set as an environment variable for wandb to work
+    WANDB_LOGGED_IN = env_vars["WANDB_LOGGED_IN"]
     WANDB_API_KEY = os.environ.get("WANDB_API_KEY", None)
     if WANDB_API_KEY is not None:
         WANDB_LOGGED_IN = wandb.login()
@@ -120,7 +121,7 @@ def set_environment(config_yaml_path, root_dir=None):
             ]
         )
 
-    if env_vars["WANDB_LOGGED_IN"]:
+    if WANDB_LOGGED_IN:
         if "Envs" not in drive_map.keys():
             drive_map["Envs"] = []
         # Weights and biases currently requires access to the

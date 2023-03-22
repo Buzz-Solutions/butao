@@ -20,63 +20,58 @@ class TaoData:
 
         self.url_images = env_vars["URL_IMAGES"]
         self.url_labels = env_vars["URL_LABELS"]
+
         self.data_spec_file = os.path.join(
             self.local_specs_dir, env_vars["DATA_SPEC_FILE"]
         )
 
-    def print_downloaded_data_info(self):
-        # print the number of images and labels
-        training_image_dir = os.path.join(self.local_data_dir, "training/image_2")
-        training_label_dir = os.path.join(self.local_data_dir, "training/label_2")
-        testing_image_dir = os.path.join(self.local_data_dir, "testing/image_2")
+        self.url_labels_filepath = os.path.join(
+            self.local_data_dir, Path(self.url_labels).name
+        )
+        self.url_images_filepath = os.path.join(
+            self.local_data_dir, Path(self.url_images).name
+        )
+        self.training_image_dir = os.path.join(self.local_data_dir, "training/image_2")
+        self.training_label_dir = os.path.join(self.local_data_dir, "training/label_2")
+        self.testing_image_dir = os.path.join(self.local_data_dir, "testing/image_2")
 
-        num_training_images = len(os.listdir(training_image_dir))
-        num_training_labels = len(os.listdir(training_label_dir))
-        num_testing_images = len(os.listdir(testing_image_dir))
+    def print_downloaded_data_info(self):
+        """Print the number of images and labels in the downloaded data."""
+        num_training_images = len(os.listdir(self.training_image_dir))
+        num_training_labels = len(os.listdir(self.training_label_dir))
+        num_testing_images = len(os.listdir(self.testing_image_dir))
 
         print(f"Number of images in the train/val set: {num_training_images}")
         print(f"Number of labels in the train/val set: {num_training_labels}")
         print(f"Number of images in the test set: {num_testing_images}")
 
         # print the first label
-        first_label_file = os.listdir(training_label_dir)[0]
-        print(f"First label in the train/val set: {first_label_file}")
-        with open(first_label_file, "r") as file:
+        first_label_fn = os.listdir(self.training_label_dir)[0]
+        first_label_fp = os.path.join(self.training_label_dir, first_label_fn)
+        print(f"First label in the train/val set: \n{first_label_fp}")
+        with open(first_label_fp, "r") as file:
             print(file.read())
 
     def download(self):
         """Download the configured images and labels files"""
-
-        url_images_filename = Path(self.url_images).name
-        url_labels_filename = Path(self.url_labels).name
-
-        # download the data
-        if not os.path.isfile(os.path.join(self.local_data_dir, url_images_filename)):
-            urllib.request.urlretrieve(
-                self.url_images, os.path.join(self.local_data_dir, url_images_filename)
-            )
+        if not os.path.isfile(self.url_images_filepath):
+            urllib.request.urlretrieve(self.url_images, self.url_images_filepath)
             print("image archive downloaded")
         else:
             print("image archive already downloaded")
 
-        if not os.path.isfile(os.path.join(self.local_data_dir, url_labels_filename)):
-            urllib.request.urlretrieve(
-                self.url_labels, os.path.join(self.local_data_dir, url_labels_filename)
-            )
+        if not os.path.isfile(self.url_labels_filepath):
+            urllib.request.urlretrieve(self.url_labels, self.url_labels_filepath)
             print("label archive downloaded")
         else:
             print("label archive already downloaded")
 
         # unzip the data
-        with zipfile.ZipFile(
-            f"{self.local_data_dir}/{url_images_filename}.zip", "r"
-        ) as zip_ref:
-            zip_ref.extractall(f"{self.local_data_dir}")
+        with zipfile.ZipFile(self.url_images_filepath, "r") as zip_ref:
+            zip_ref.extractall(self.local_data_dir)
 
-        with zipfile.ZipFile(
-            f"{self.local_data_dir}/{url_labels_filename}.zip", "r"
-        ) as zip_ref:
-            zip_ref.extractall(f"{self.local_data_dir}")
+        with zipfile.ZipFile(self.url_labels_filepath, "r") as zip_ref:
+            zip_ref.extractall(self.local_data_dir)
 
         self.print_downloaded_data_info()
 
