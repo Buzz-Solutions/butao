@@ -1,5 +1,5 @@
 env_name=butao
-python_version=3.10
+python_version=3.9
 
 conda create -n ${env_name} python=${python_version}
 CONDA_BASE=$(conda info --base)
@@ -8,6 +8,6 @@ conda activate $env_name
 
 pip install -r requirements.txt
 pip install -e .
-python -m ipykernel install --name ${env_name}
+python -m ipykernel install --name ${env_name} --user
 pre-commit install
 conda deactivate
