@@ -9,8 +9,10 @@ import urllib.request
 class TaoData:
     def __init__(self, config_yaml_path):
         self.local_data_dir = os.environ["LOCAL_DATA_DIR"]
-        self.data_download_dir = os.environ["DATA_DOWNLOAD_DIR"]
         self.local_specs_dir = os.environ["LOCAL_SPECS_DIR"]
+
+        self.data_download_dir = os.environ["DATA_DOWNLOAD_DIR"]
+        self.specs_dir = os.environ["SPECS_DIR"]
 
         os.makedirs(self.local_data_dir, exist_ok=True)
 
@@ -21,10 +23,14 @@ class TaoData:
         self.url_images = env_vars["URL_IMAGES"]
         self.url_labels = env_vars["URL_LABELS"]
 
-        self.data_spec_file = os.path.join(
+        self.spec_file = os.path.join(self.specs_dir, env_vars["DATA_SPEC_FILE"])
+        self.local_spec_file = os.path.join(
             self.local_specs_dir, env_vars["DATA_SPEC_FILE"]
         )
 
+        kitti = env_vars["KITTI_FORMAT"]
+
+        # set more of the local and docker folder/file paths
         self.url_labels_filepath = os.path.join(
             self.local_data_dir, Path(self.url_labels).name
         )
@@ -34,6 +40,23 @@ class TaoData:
         self.training_image_dir = os.path.join(self.local_data_dir, "training/image_2")
         self.training_label_dir = os.path.join(self.local_data_dir, "training/label_2")
         self.testing_image_dir = os.path.join(self.local_data_dir, "testing/image_2")
+
+        if kitti:
+            self.tfrecords_dir = os.path.join(
+                self.local_data_dir, "tfrecords/kitti_trainval"
+            )
+            self.docker_tfrecords_dir = os.path.join(
+                self.data_download_dir, "tfrecords/kitti_trainval/kitti_trainval"
+            )
+            print("Converting kitti data to Tfrecords for trainval dataset")
+        else:
+            self.tfrecords_dir = os.path.join(
+                self.local_data_dir, "tfrecords/coco_trainval"
+            )
+            self.docker_tfrecords_dir = os.path.join(
+                self.data_download_dir, "tfrecords/coco_trainval/coco_trainval"
+            )
+            print("Converting coco data to Tfrecords for trainval dataset")
 
     def print_downloaded_data_info(self):
         """Print the number of images and labels in the downloaded data."""
@@ -66,45 +89,31 @@ class TaoData:
         else:
             print("label archive already downloaded")
 
-        # unzip the data
+        print("Extracting the image archive...")
         with zipfile.ZipFile(self.url_images_filepath, "r") as zip_ref:
             zip_ref.extractall(self.local_data_dir)
 
+        print("Extracting the labels archive...")
         with zipfile.ZipFile(self.url_labels_filepath, "r") as zip_ref:
             zip_ref.extractall(self.local_data_dir)
 
         self.print_downloaded_data_info()
 
-    def convert(self, kitti=True):
+    def convert(self):
         """Convert the configured images and labels files to tfrecords."""
-        if kitti:
-            tfrecords_dir = os.path.join(
-                self.local_data_dir, "tfrecords/kitti_trainval"
-            )
-            docker_tfrecords_dir = os.path.join(
-                self.data_download_dir, "tfrecords/kitti_trainval/kitti_trainval"
-            )
-            print("Converting kitti data to Tfrecords for trainval dataset")
-        else:
-            tfrecords_dir = os.path.join(self.local_data_dir, "tfrecords/coco_trainval")
-            docker_tfrecords_dir = os.path.join(
-                self.data_download_dir, "tfrecords/coco_trainval/coco_trainval"
-            )
-            print("Converting coco data to Tfrecords for trainval dataset")
 
         print("TFrecords conversion spec file for training")
-        with open(self.data_spec_file, "r") as file:
+        with open(self.local_spec_file, "r") as file:
             print(file.read())
 
         # Creating a new directory for the output tfrecords dump.
         print("Converting Tfrecords for trainval dataset")
-        if not os.path.exists(tfrecords_dir):
-            os.makedirs(tfrecords_dir)
+        if not os.path.exists(self.tfrecords_dir):
+            os.makedirs(self.tfrecords_dir)
         else:
-            shutil.rmtree(tfrecords_dir)
-            os.makedirs(tfrecords_dir)
+            shutil.rmtree(self.tfrecords_dir)
+            os.makedirs(self.tfrecords_dir)
 
         exec_cmd = f"tao detectnet_v2 dataset_convert \
-        -d {self.data_spec_file} -o {docker_tfrecords_dir}"
-        print("executing command: \n", exec_cmd)
-        os.system(exec_cmd)
+        -d {self.spec_file} -o {self.docker_tfrecords_dir}"
+        print("execute command: \n", exec_cmd)

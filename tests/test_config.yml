@@ -8,3 +8,4 @@ WANDB_LOGGED_IN: False
 URL_IMAGES: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_image_2.zip
 URL_LABELS: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_label_2.zip
 DATA_SPEC_FILE: detectnet_v2_tfrecords_kitti_trainval.txt  # goes under notebooks/detectnet_v2/specs/
+KITTI_FORMAT: True

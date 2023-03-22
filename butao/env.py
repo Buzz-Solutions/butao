@@ -134,7 +134,9 @@ def set_environment(config_yaml_path, root_dir=None):
             [{"variable": "WANDB_API_KEY", "value": os.getenv("WANDB_API_KEY")}]
         )
 
-    # Writing the mounts file.
+    print("Writing mounts file to: ", mounts_file)
+    print(drive_map)
+
     with open(mounts_file, "w") as mfile:
         json.dump(drive_map, mfile, indent=4)
 
