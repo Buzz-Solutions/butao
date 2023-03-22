@@ -1,5 +1,6 @@
 import os
 from butao import env
+from butao.data import TaoData
 
 
 def test_set_environment():
@@ -24,3 +25,15 @@ def test_set_environment():
         os.environ["USER_EXPERIMENT_DIR"] == "/workspace/tao-experiments/detectnet_v2"
     )
     assert os.environ["SPECS_DIR"] == "/workspace/tao-experiments/detectnet_v2/specs"
+
+
+def test_get_root_config():
+    """Test the get_root_config function."""
+    root_config = env.get_root_config()
+    assert root_config.endswith("butao/configs/env_config.yaml")
+
+
+def test_data():
+    """Test the print_downloaded_data_info function."""
+    data = TaoData("tests/test_config.yml")
+    assert data is not None

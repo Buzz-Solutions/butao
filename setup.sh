@@ -8,5 +8,6 @@ conda activate $env_name
 
 pip install -r requirements.txt
 pip install -e .
+python -m ipykernel install --name ${env_name}
 pre-commit install
 conda deactivate

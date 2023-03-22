@@ -10,4 +10,5 @@ pytest-mock==3.10.0
 pyyaml==6.0
 wandb==0.14.0
 jupyter==1.0.0
+jupyterlab==3.6.2
 nvidia-tao
