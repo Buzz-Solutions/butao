@@ -1,6 +1,7 @@
 import os
 from butao import env
 from butao.data import TaoData
+from butao.model import TaoModel
 
 
 def test_set_environment():
@@ -29,11 +30,17 @@ def test_set_environment():
 
 def test_get_root_config():
     """Test the get_root_config function."""
-    root_config = env.get_root_config()
-    assert root_config.endswith("butao/configs/env_config.yaml")
+    root_config = env.get_root_config(config="detectnet_v2")
+    assert root_config.endswith("butao/configs/detectnet_v2.yaml")
 
 
 def test_data():
     """Test the print_downloaded_data_info function."""
     data = TaoData("tests/test_config.yml")
     assert data is not None
+
+
+def test_model():
+    """Test the print_downloaded_model_info function."""
+    model = TaoModel("tests/test_config.yml")
+    assert model is not None

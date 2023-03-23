@@ -17,10 +17,10 @@ def get_root_dir():
     return root_dir
 
 
-def get_root_config():
+def get_root_config(config="detectnet_v2"):
     """Get the root config file."""
     root_dir = get_root_dir()
-    config_path = os.path.join(root_dir, "configs", "env_config.yaml")
+    config_path = os.path.join(root_dir, "configs", f"{config}.yaml")
     return config_path
 
 

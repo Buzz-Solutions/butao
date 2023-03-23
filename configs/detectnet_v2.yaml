@@ -9,3 +9,7 @@ URL_IMAGES: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_image_2.
 URL_LABELS: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_label_2.zip
 DATA_SPEC_FILE: detectnet_v2_tfrecords_kitti_trainval.txt  # goes under notebooks/detectnet_v2/specs/
 KITTI_FORMAT: True
+
+NGC_REGISTRY: nvidia/tao/pretrained_detectnet_v2
+MODEL_TYPE: resnet18
+TRAIN_SPEC_FILE: detectnet_v2_train_resnet18_kitti.txt
