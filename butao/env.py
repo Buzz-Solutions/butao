@@ -61,9 +61,8 @@ def set_environment(config_yaml_path, root_dir=None):
     # Make the experiment directory
     os.makedirs(os.environ["LOCAL_EXPERIMENT_DIR"], exist_ok=True)
 
-    # WANDB_API_KEY must be set as an environment variable for wandb to work
-    WANDB_LOGGED_IN = env_vars["WANDB_LOGGED_IN"]
-    WANDB_API_KEY = os.environ.get("WANDB_API_KEY", None)
+    WANDB_LOGGED_IN = False
+    WANDB_API_KEY = env_vars["WANDB_API_KEY"]
     if WANDB_API_KEY is not None:
         WANDB_LOGGED_IN = wandb.login()
         if WANDB_LOGGED_IN:
