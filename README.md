@@ -19,7 +19,7 @@ From the root level of this repo:
 bash setup.sh
 ```
 
-## Get started with TAO
+## Set up and install TAO
 
 The following is a condensed version of [NVIDIA's quickstart guide](https://docs.nvidia.com/tao/tao-toolkit/text/tao_toolkit_quick_start_guide.html) and other small bits of info I found elsewhere to help fill in some gaps. If you run into issues with this setup, try restarting using the guide in full.
 
@@ -50,7 +50,7 @@ Then run:
 bash install_tao.sh $version
 ```
 
-Check the output to be sure that it installed all packages successfully. You can now run all steps for model training in `notebooks/tao_modeling.ipynb`
+Check the output to be sure that it installed all packages successfully.
 
 You should also see a new directory structure like this:
 ```
@@ -64,3 +64,10 @@ https://docs.nvidia.com/tao/tao-toolkit/text/tao_toolkit_quick_start_guide.html#
 If you just want to view the NVIDIA notebooks, you can also do so more easily [here](https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/resources/cv_samples/files)
 
 The `tao_modeling` notebook in this repo was constructed with those as templates.
+
+## Get started
+
+1. Choose a model architecture based on one of the following lists [here](https://docs.nvidia.com/tao/tao-toolkit/text/tao_toolkit_quick_start_guide.html#run-sample-jupyter-notebooks) or [here](https://docs.nvidia.com/tao/tao-toolkit/text/model_zoo/cv_models)
+2. Update the corresponding yaml configuration in `configs/`
+3. You can now run all steps for model training in `notebooks/tao_modeling.ipynb`
+
