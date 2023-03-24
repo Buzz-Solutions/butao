@@ -133,8 +133,3 @@ class TaoEnv:
 
         with open(mounts_file, "w") as mfile:
             json.dump(drive_map, mfile, indent=4)
-
-
-if __name__ == "__main__":
-    config_path = get_root_config()
-    TaoEnv(config_path)
