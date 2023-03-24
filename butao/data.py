@@ -1,34 +1,27 @@
 import os
 import shutil
-import yaml
 import zipfile
 from pathlib import Path
 import urllib.request
 
+from butao.env import TaoEnv
 
-class TaoData:
+
+class TaoData(TaoEnv):
     def __init__(self, config_yaml_path):
-        self.local_data_dir = os.environ["LOCAL_DATA_DIR"]
-        self.local_specs_dir = os.environ["LOCAL_SPECS_DIR"]
-
-        self.data_download_dir = os.environ["DATA_DOWNLOAD_DIR"]
-        self.specs_dir = os.environ["SPECS_DIR"]
+        TaoEnv.__init__(self, config_yaml_path)
 
         os.makedirs(self.local_data_dir, exist_ok=True)
 
-        # load the config vars
-        with open(config_yaml_path, "r") as f:
-            env_vars = yaml.safe_load(f)
+        self.url_images = self.params["URL_IMAGES"]
+        self.url_labels = self.params["URL_LABELS"]
 
-        self.url_images = env_vars["URL_IMAGES"]
-        self.url_labels = env_vars["URL_LABELS"]
-
-        self.spec_file = os.path.join(self.specs_dir, env_vars["DATA_SPEC_FILE"])
+        self.spec_file = os.path.join(self.specs_dir, self.params["DATA_SPEC_FILE"])
         self.local_spec_file = os.path.join(
-            self.local_specs_dir, env_vars["DATA_SPEC_FILE"]
+            self.local_specs_dir, self.params["DATA_SPEC_FILE"]
         )
 
-        kitti = env_vars["KITTI_FORMAT"]
+        kitti = self.params["KITTI_FORMAT"]
 
         # set more of the local and docker folder/file paths
         self.url_labels_filepath = os.path.join(

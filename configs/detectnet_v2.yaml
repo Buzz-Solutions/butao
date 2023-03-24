@@ -1,15 +1,18 @@
+# environment variables
 TAO_MODEL_NAME: detectnet_v2
-KEY: tlt_encode
-NUM_GPUS: 2
 USER_WORKSPACE_DIR: /workspace/tao-experiments
 CLEARML_LOGGED_IN: False
 WANDB_API_KEY: # set this to your wandb api key if you want to use wandb
 
+# data variables
 URL_IMAGES: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_image_2.zip
 URL_LABELS: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_label_2.zip
 DATA_SPEC_FILE: detectnet_v2_tfrecords_kitti_trainval.txt  # goes under notebooks/detectnet_v2/specs/
 KITTI_FORMAT: True
 
+# model variables
 NGC_REGISTRY: nvidia/tao/pretrained_detectnet_v2
 MODEL_TYPE: resnet18
 TRAIN_SPEC_FILE: detectnet_v2_train_resnet18_kitti.txt
+KEY: tlt_encode
+NUM_GPUS: 2
