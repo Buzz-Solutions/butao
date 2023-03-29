@@ -1,5 +1,9 @@
+import datetime
+from pathlib import Path
 from typer import Typer
 import cv2
+from moviepy.editor import VideoFileClip
+from PIL import Image
 
 
 def get_stream(
@@ -42,10 +46,26 @@ def get_stream(
         ValueError("Error opening video stream or file")
 
     # Get the frame rate and dimensions of the stream
+    fps = stream.get(cv2.CAP_PROP_FPS)
+    input_width = int(stream.get(cv2.CAP_PROP_FRAME_WIDTH))
+    input_height = int(stream.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+    # set timeout period by converting minutes to number of frames
+    timeout_frames = int(timeout * 60 * fps)
+    print(f"INFO: Timing out in {timeout} minutes ({timeout_frames} frames)")
+
+    # create a function to resize each frame
+    if width is None or height is None:
+        width = int(input_width // downsamp)
+        height = int(input_height // downsamp)
+        print(
+            "INFO: No width or height given."
+            "Resizing stream to {width}x{height} (downsamp={downsamp})"
+        )
+
+    resize_frame = lambda in_frame: cv2.resize(in_frame, (width, height))
+
     if save:
-        fps = stream.get(cv2.CAP_PROP_FPS)
-        input_width = stream.get(cv2.CAP_PROP_FRAME_WIDTH)
-        input_height = stream.get(cv2.CAP_PROP_FRAME_HEIGHT)
         if fps > 0:
             print(f"INFO: Frame rate of the stream: {fps} fps")
         else:
@@ -55,21 +75,13 @@ def get_stream(
                 f"Setting it to {fps} fps ..."
             )
 
+        ip = url.split(":")[0]
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        filename = f"{ip}_{timestamp}_{width}x{height}.mp4"
+
         # Define the codec and create VideoWriter object
         fourcc = cv2.VideoWriter_fourcc(*"mp4v")  # codec
-        out = cv2.VideoWriter("output.mp4", fourcc, fps, (int(width), int(height)))
-
-    # set timeout period by converting minutes to number of frames
-    timeout_frames = int(timeout * 60 * fps)
-    print(f"INFO: Timing out in {timeout} minutes ({timeout_frames} frames)")
-
-    # create a function to resize each frame
-    if width is not None and height is not None:
-        resize_frame = lambda in_frame: cv2.resize(in_frame, (width, height))
-    else:
-        resize_frame = lambda in_frame: cv2.resize(
-            in_frame, (input_width // downsamp, input_height // downsamp)
-        )
+        out = cv2.VideoWriter(filename, fourcc, fps, (int(width), int(height)))
 
     # Read until the end of the stream
     frame_count = 0
@@ -87,7 +99,7 @@ def get_stream(
             out.write(frame)
 
         if show:
-            cv2.imshow("Frame", frame)
+            cv2.imshow(filename, frame)
 
         # Press Q on keyboard to exit
         if cv2.waitKey(1) & 0xFF == ord("q"):
@@ -99,12 +111,54 @@ def get_stream(
     stream.release()
     if save:
         out.release()
-        print("INFO: Video saved to output.mp4")
+        print(f"INFO: Video saved to {filename}")
     cv2.destroyAllWindows()
+
+
+def get_video_frame(
+    video: str,
+    time_stamp: float,
+    output_name: str = None,
+    show: bool = True,
+    save: bool = True,
+):
+    """Get a frame from a video at a given time stamp.
+
+    Args:
+        video (str): Path to the video file.
+        time_stamp (float): Time stamp (in seconds) of the frame to be extracted.
+        output_name (str, optional): Path to the output image file (without extension)
+         Defaults to video file + time stamp
+        show (bool, optional): Show the frame. Defaults to True.
+        save (bool, optional): Save the frame to a file. Defaults to True.
+
+    Returns:
+        None
+
+    The output image file will be saved to the current directory.
+    """
+    clip = VideoFileClip(video)
+    frame = clip.get_frame(time_stamp)
+    clip.close()
+
+    if save:
+        if output_name is None:
+            output_name = Path(video).with_suffix("").as_posix() + f"_{time_stamp}s"
+
+        img = Image.fromarray(frame)
+        img.save(output_name + ".png", format="PNG")
+        img.save(output_name + ".jpg", format="JPEG")
+
+    if show:
+        while True:
+            cv2.imshow(Path(output_name).name, frame)
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
 
 
 if __name__ == "__main__":
     # user Typer module to create a command line interface
     app = Typer()
     app.command()(get_stream)
+    app.command()(get_video_frame)
     app()
