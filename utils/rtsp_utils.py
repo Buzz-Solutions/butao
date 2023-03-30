@@ -12,8 +12,8 @@ def get_stream(
     url: str,
     show: bool = True,
     save: bool = False,
-    width: int = 640,
-    height: int = 480,
+    width: int = 1920,
+    height: int = 1084,
     downsamp: int = 2,
     timeout: float = 30,
 ):
@@ -26,9 +26,9 @@ def get_stream(
         show (bool, optional): Show the stream. Defaults to True.
         save (bool, optional): Save the stream to a file. Defaults to False.
         width (int, optional): Width of the stream. Will resize stream accordingly.
-         Defaults to 640.
+         Defaults to 1920.
         height (int, optional): Height of the stream. Will resize stream accordingly.
-         Defaults to 480.
+         Defaults to 1084.
         downsamp (int, optional): Downsampling factor for resizing stream.
          Only used if width or height is not specified. Defaults to 2.
         timeout (float, optional): Timeout for the stream (in minutes). Defaults to 30.
@@ -141,10 +141,10 @@ def get_video_frame(
     frame = clip.get_frame(time_stamp)
     clip.close()
 
-    if save:
-        if output_name is None:
-            output_name = Path(video).with_suffix("").as_posix() + f"_{time_stamp}s"
+    if output_name is None:
+        output_name = Path(video).with_suffix("").as_posix() + f"_{time_stamp}s"
 
+    if save:
         img = Image.fromarray(frame)
         img.save(output_name + ".png", format="PNG")
         img.save(output_name + ".jpg", format="JPEG")
