@@ -14,3 +14,4 @@ jupyterlab==3.6.2
 nvidia-tao==4.0.1
 Typer==0.7.0
 moviepy==1.0.3
+matplotlib==3.7.1
