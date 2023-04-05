@@ -68,6 +68,14 @@ The `tao_modeling` notebook in this repo was constructed with those as templates
 ## Get started
 
 1. Choose a model architecture based on one of the following lists [here](https://docs.nvidia.com/tao/tao-toolkit/text/tao_toolkit_quick_start_guide.html#run-sample-jupyter-notebooks) or [here](https://docs.nvidia.com/tao/tao-toolkit/text/model_zoo/cv_models)
-2. Update the corresponding yaml configuration in `configs/`
-3. You can now run all steps for model training in `notebooks/tao_modeling.ipynb`
+2. Find the model info in the ngc registry
+   - Navigate to https://catalog.ngc.nvidia.com/models
+   - Search for and select your model card
+   - Click the 'Download' drop down in the upper right and select `wget`
+   - It should copy to your clipboard a link formatted like https://api.ngc.nvidia.com/v2/models/nvidia/tao/<model_name>/versions
+   - Use this <model_name> for the `NGC_REGISTRY` in your corresponding yaml configuration in `configs/`
+   - Find one of the model versions listed in the model card and use as `MODEL_VERSION`
+   - Find the 'Model load key' and use as `KEY`
+3. Create or update the corresponding yaml configuration in `configs/`
+4. You can now run all steps for model training in `notebooks/tao_modeling.ipynb`
 

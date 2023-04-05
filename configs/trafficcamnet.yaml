@@ -1,11 +1,11 @@
 # environment variables
-TAO_MODEL_NAME: detectnet_v2
+TAO_MODEL_NAME: trafficcamnet
 USER_WORKSPACE_DIR: /workspace/tao-experiments
 CLEARML_LOGGED_IN: False
 WANDB_API_KEY: # set this to your wandb api key if you want to use wandb
 
 # training data variables
-# spec file goes under notebooks/detectnet_v2/specs/
+# spec file goes under notebooks/trafficcamnet/specs/
 URL_IMAGES: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_image_2.zip
 URL_LABELS: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_label_2.zip
 DATA_SPEC_FILE: detectnet_v2_tfrecords_kitti_trainval.txt
@@ -13,13 +13,13 @@ KITTI_FORMAT: True
 
 # model variables
 # check the model zoo for the correct model type: https://catalog.ngc.nvidia.com/models
-# spec file goes under notebooks/detectnet_v2/specs/
-NGC_REGISTRY: nvidia/tao/pretrained_detectnet_v2
-MODEL_VERSION: resnet18
+# spec file goes under notebooks/trafficcamnet/specs/
+NGC_REGISTRY: nvidia/tao/trafficcamnet
+MODEL_VERSION: unpruned_v1.0  # or pruned_v1.0.3
 TRAIN_SPEC_FILE: detectnet_v2_train_resnet18_kitti.txt
 KEY: tlt_encode
 NUM_GPUS: 2
 
 # testing data variables
-# spec file goes under notebooks/detectnet_v2/specs/
+# spec file goes under notebooks/trafficcamnet/specs/
 INFERENCE_SPEC_FILE: detectnet_v2_inference_kitti_tlt.txt

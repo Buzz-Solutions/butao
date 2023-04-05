@@ -15,6 +15,9 @@ class TaoInfer(TaoEnv):
         self.inference_spec = os.path.join(
             self.specs_dir, self.params["INFERENCE_SPEC_FILE"]
         )
+        self.local_inference_spec = os.path.join(
+            self.local_specs_dir, self.params["INFERENCE_SPEC_FILE"]
+        )
 
         self.sample_data_dir = os.path.join(self.data_download_dir, "test_samples")
         self.local_sample_data_dir = os.path.join(self.local_data_dir, "test_samples")
