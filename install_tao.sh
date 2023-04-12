@@ -7,7 +7,7 @@ echo "Downloading the getting started package..."
 url="https://api.ngc.nvidia.com/v2/resources/nvidia/tao/tao-getting-started/versions/${version}/zip"
 outfile="getting_started_v${version}.zip"
 
-if [[ "$OS" == "Darwin" ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
     curl -J -L $url -o $outfile
 else
     wget --content-disposition $url -O $outfile

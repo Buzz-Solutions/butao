@@ -1,0 +1,81 @@
+inferencer_config{
+  # defining target class names for the experiment.
+  # Note: This must be mentioned in order of the networks classes.
+  target_classes: "car"
+  target_classes: "bicycle"
+  target_classes: "person"
+  target_classes: "road_sign"
+  # Inference dimensions.
+  image_width: 960
+  image_height: 544
+  # Must match what the model was trained for.
+  image_channels: 3
+  batch_size: 1
+  gpu_index: 0
+  # model handler config
+  tensorrt_config{
+    parser: ETLT
+    etlt_model: "/workspace/tao-experiments/trafficcamnet/pretrained_pruned_v1.0.3/trafficcamnet_vpruned_v1.0.3/resnet18_trafficcamnet_pruned.etlt"
+    save_engine: true
+    trt_engine: "/workspace/tao-experiments/trafficcamnet/pretrained_pruned_v1.0.3/trafficcamnet_vpruned_v1.0.3/resnet18_trafficcamnet_pruned.etlt.trt"
+    backend_data_type: FP32
+  }
+}
+bbox_handler_config{
+  kitti_dump: true
+  disable_overlay: false
+  overlay_linewidth: 2
+  classwise_bbox_handler_config{
+    key:"car"
+    value: {
+      confidence_model: "aggregate_cov"
+      output_map: "car"
+      bbox_color{
+        R: 0
+        G: 255
+        B: 0
+      }
+      clustering_config{
+        coverage_threshold: 0.5
+        clustering_algorithm: NMS
+        nms_iou_threshold: 0.5
+        nms_confidence_threshold: 0.5
+      }
+    }
+  }
+  classwise_bbox_handler_config{
+    key:"person"
+    value: {
+      confidence_model: "aggregate_cov"
+      output_map: "person"
+      bbox_color{
+        R: 255
+        G: 0
+        B: 0
+      }
+      clustering_config{
+        coverage_threshold: 0.05
+        clustering_algorithm: NMS
+        nms_iou_threshold: 0.5
+        nms_confidence_threshold: 0.5
+      }
+    }
+  }
+  classwise_bbox_handler_config{
+    key:"default"
+    value: {
+      confidence_model: "aggregate_cov"
+      bbox_color{
+        R: 0
+        G: 0
+        B: 0
+      }
+      clustering_config{
+        coverage_threshold: 1.0
+        clustering_algorithm: NMS
+        nms_iou_threshold: 0.5
+        nms_confidence_threshold: 1.0
+      }
+    }
+  }
+}

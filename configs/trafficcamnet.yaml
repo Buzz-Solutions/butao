@@ -6,20 +6,20 @@ WANDB_API_KEY: # set this to your wandb api key if you want to use wandb
 
 # training data variables
 # spec file goes under notebooks/trafficcamnet/specs/
-URL_IMAGES: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_image_2.zip
-URL_LABELS: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_label_2.zip
-DATA_SPEC_FILE: detectnet_v2_tfrecords_kitti_trainval.txt
-KITTI_FORMAT: True
+URL_IMAGES: None
+URL_LABELS: None
+DATA_SPEC_FILE: detectnet_v2_tfrecords_kitti_trainval.txt  # placeholder for now
+KITTI_FORMAT: None
 
 # model variables
 # check the model zoo for the correct model type: https://catalog.ngc.nvidia.com/models
 # spec file goes under notebooks/trafficcamnet/specs/
 NGC_REGISTRY: nvidia/tao/trafficcamnet
-MODEL_VERSION: unpruned_v1.0  # or pruned_v1.0.3
-TRAIN_SPEC_FILE: detectnet_v2_train_resnet18_kitti.txt
+MODEL_VERSION: pruned_v1.0.3  # pruned_v1.0.3 or unpruned_v1.0
+TRAIN_SPEC_FILE: detectnet_v2_train_resnet18_kitti.txt  # placeholder for now
 KEY: tlt_encode
-NUM_GPUS: 2
+NUM_GPUS: 1
 
 # testing data variables
 # spec file goes under notebooks/trafficcamnet/specs/
-INFERENCE_SPEC_FILE: detectnet_v2_inference_kitti_tlt.txt
+INFERENCE_SPEC_FILE: trafficcamnet_pruned_inference_kitti_etlt.txt  # trafficcamnet_pruned_inference_kitti_etlt.txt or trafficcamnet_unpruned_inference_kitti_tlt.txt
