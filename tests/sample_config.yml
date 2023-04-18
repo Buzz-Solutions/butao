@@ -1,5 +1,6 @@
 # environment variables
 TAO_MODEL_NAME: detectnet_v2
+TAO_BASE_MODEL: detectnet_v2
 KEY: tlt_encode
 NUM_GPUS: 2
 USER_WORKSPACE_DIR: /workspace/tao-experiments

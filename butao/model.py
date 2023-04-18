@@ -24,9 +24,9 @@ class TaoModel(TaoEnv):
         self.train_spec = self.train_spec_init
         self.local_train_spec = self.local_train_spec_init
 
-        self.local_model_dir = os.path.join(
-            self.local_experiment_dir, f"pretrained_{self.model_version}"
-        )
+        model_dir = self.ngc_registry.split("/")[-1] + "_v" + self.model_version
+        self.local_model_dir = os.path.join(self.local_experiment_dir, model_dir)
+        self.user_model_dir = os.path.join(self.user_experiment_dir, model_dir)
 
         self.user_experiment_dir_unpruned = os.path.join(
             self.user_experiment_dir, "experiment_dir_unpruned"

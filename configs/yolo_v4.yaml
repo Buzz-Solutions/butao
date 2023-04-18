@@ -1,0 +1,92 @@
+# environment variables
+TAO_MODEL_NAME: yolo_v4
+TAO_BASE_MODEL: yolo_v4
+USER_WORKSPACE_DIR: /workspace/tao-experiments
+CLEARML_LOGGED_IN: False
+WANDB_API_KEY: # set this to your wandb api key if you want to use wandb
+
+# training data variables
+# spec file goes under notebooks/yolo_v4/specs/
+URL_IMAGES: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_image_2.zip
+URL_LABELS: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_label_2.zip
+DATA_SPEC_FILE: yolo_v4_tfrecords_kitti_train.txt
+KITTI_FORMAT: True
+
+# model variables
+# check the model zoo for the correct model type: https://catalog.ngc.nvidia.com/models
+# spec file goes under notebooks/yolo_v4/specs/
+NGC_REGISTRY: nvidia/tao/pretrained_object_detection
+MODEL_VERSION: mobilenet_v1  # options listed below
+TRAIN_SPEC_FILE: yolo_v4_train_resnet18_kitti.txt
+KEY: tlt_encode
+NUM_GPUS: 2
+
+# testing data variables
+# spec file goes under notebooks/yolo_v4/specs/
+INFERENCE_SPEC_FILE: yolo_v4_train_resnet18_kitti.txt
+
+
+#+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+#| Versi | Accur | Epoch | Batch | GPU   | Memor | File  | Statu | Creat |
+#| on    | acy   | s     | Size  | Model | y Foo | Size  | s     | ed    |
+#|       |       |       |       |       | tprin |       |       | Date  |
+#|       |       |       |       |       | t     |       |       |       |
+#+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+#| vgg19 | 77.56 | 80    | 1     | V100  | 153.7 | 153.7 | UPLOA | Aug   |
+#|       |       |       |       |       |       | 2 MB  | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| vgg16 | 77.17 | 80    | 1     | V100  | 113.2 | 113.1 | UPLOA | Aug   |
+#|       |       |       |       |       |       | 6 MB  | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| squee | 65.13 | 80    | 1     | V100  | 6.5   | 6.46  | UPLOA | Aug   |
+#| zenet |       |       |       |       |       | MB    | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| resne | 77.91 | 80    | 1     | V100  | 294.2 | 294.2 | UPLOA | Aug   |
+#| t50   |       |       |       |       |       | MB    | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| resne | 77.04 | 80    | 1     | V100  | 170.7 | 170.6 | UPLOA | Aug   |
+#| t34   |       |       |       |       |       | 5 MB  | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| resne | 76.74 | 80    | 1     | V100  | 89.0  | 88.96 | UPLOA | Aug   |
+#| t18   |       |       |       |       |       | MB    | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| resne | 77.78 | 80    | 1     | V100  | 576.3 | 576.3 | UPLOA | Aug   |
+#| t101  |       |       |       |       |       | 3 MB  | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| resne | 74.38 | 80    | 1     | V100  | 38.3  | 38.31 | UPLOA | Aug   |
+#| t10   |       |       |       |       |       | MB    | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| mobil | 72.75 | 80    | 1     | V100  | 5.0   | 5.01  | UPLOA | Aug   |
+#| enet_ |       |       |       |       |       | MB    | D_COM | 18,   |
+#| v2    |       |       |       |       |       |       | PLETE | 2021  |
+#| mobil | 79.5  | 80    | 1     | V100  | 26.2  | 26.22 | UPLOA | Aug   |
+#| enet_ |       |       |       |       |       | MB    | D_COM | 18,   |
+#| v1    |       |       |       |       |       |       | PLETE | 2021  |
+#| googl | 77.11 | 80    | 1     | V100  | 47.6  | 47.64 | UPLOA | Aug   |
+#| enet  |       |       |       |       |       | MB    | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| effic | 77.11 | 80    | 1     | V100  | 26.8  | 26.78 | UPLOA | Aug   |
+#| ientn |       |       |       |       |       | MB    | D_COM | 18,   |
+#| et_b1 |       |       |       |       |       |       | PLETE | 2021  |
+#| _swis |       |       |       |       |       |       |       |       |
+#| h     |       |       |       |       |       |       |       |       |
+#| effic | 77.11 | 80    | 1     | V100  | 26.8  | 26.78 | UPLOA | Aug   |
+#| ientn |       |       |       |       |       | MB    | D_COM | 18,   |
+#| et_b1 |       |       |       |       |       |       | PLETE | 2021  |
+#| _relu |       |       |       |       |       |       |       |       |
+#| darkn | 76.44 | 80    | 1     | V100  | 311.7 | 311.6 | UPLOA | Aug   |
+#| et53  |       |       |       |       |       | 8 MB  | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| darkn | 77.52 | 80    | 1     | V100  | 152.8 | 152.8 | UPLOA | Aug   |
+#| et19  |       |       |       |       |       | 2 MB  | D_COM | 18,   |
+#|       |       |       |       |       |       |       | PLETE | 2021  |
+#| cspda | 77.1  | 80    | 1     | V100  | 28.6  | 28.57 | UPLOA | Nov   |
+#| rknet |       |       |       |       |       | MB    | D_COM | 23,   |
+#| _tiny |       |       |       |       |       |       | PLETE | 2021  |
+#| cspda | 76.44 | 80    | 1     | V100  | 103.0 | 102.9 | UPLOA | Sep   |
+#| rknet |       |       |       |       |       | 9 MB  | D_COM | 10,   |
+#| 53    |       |       |       |       |       |       | PLETE | 2021  |
+#| cspda | 77.52 | 80    | 1     | V100  | 62.9  | 62.86 | UPLOA | Sep   |
+#| rknet |       |       |       |       |       | MB    | D_COM | 10,   |
+#| 19    |       |       |       |       |       |       | PLETE | 2021  |
+#+-------+-------+-------+-------+-------+-------+-------+-------+-------+

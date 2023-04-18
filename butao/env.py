@@ -30,27 +30,20 @@ class TaoEnv:
         with open(config_yaml_path, "r") as f:
             self.params = yaml.safe_load(f)
 
-        self.tao_model_name = self.params["TAO_MODEL_NAME"]
+        tao_model_name = self.params["TAO_MODEL_NAME"]
+        self.tao_base_model = self.params["TAO_BASE_MODEL"]
         self.user_workspace_dir = self.params["USER_WORKSPACE_DIR"]
 
         # Set local directories
-        self.local_project_dir = os.path.join(
-            root_dir, "notebooks", self.tao_model_name
-        )
+        self.local_project_dir = os.path.join(root_dir, "notebooks", tao_model_name)
         self.local_data_dir = os.path.join(self.local_project_dir, "data")
-        self.local_experiment_dir = os.path.join(
-            self.local_project_dir, self.tao_model_name
-        )
+        self.local_experiment_dir = os.path.join(self.local_project_dir, tao_model_name)
         self.local_specs_dir = os.path.join(self.local_project_dir, "specs")
 
         # set workspace directories (what's mounted on the docker container)
         self.data_download_dir = os.path.join(self.user_workspace_dir, "data")
-        self.user_experiment_dir = os.path.join(
-            self.user_workspace_dir, self.tao_model_name
-        )
-        self.specs_dir = os.path.join(
-            self.user_workspace_dir, self.tao_model_name, "specs"
-        )
+        self.user_experiment_dir = os.path.join(self.user_workspace_dir, tao_model_name)
+        self.specs_dir = os.path.join(self.user_workspace_dir, tao_model_name, "specs")
 
         # Make the experiment directory
         os.makedirs(self.local_experiment_dir, exist_ok=True)

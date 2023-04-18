@@ -1,5 +1,6 @@
 # environment variables
 TAO_MODEL_NAME: detectnet_v2
+TAO_BASE_MODEL: detectnet_v2
 USER_WORKSPACE_DIR: /workspace/tao-experiments
 CLEARML_LOGGED_IN: False
 WANDB_API_KEY: # set this to your wandb api key if you want to use wandb

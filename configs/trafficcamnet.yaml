@@ -1,5 +1,6 @@
 # environment variables
 TAO_MODEL_NAME: trafficcamnet
+TAO_BASE_MODEL: detectnet_v2
 USER_WORKSPACE_DIR: /workspace/tao-experiments
 CLEARML_LOGGED_IN: False
 WANDB_API_KEY: # set this to your wandb api key if you want to use wandb
@@ -15,11 +16,11 @@ KITTI_FORMAT: None
 # check the model zoo for the correct model type: https://catalog.ngc.nvidia.com/models
 # spec file goes under notebooks/trafficcamnet/specs/
 NGC_REGISTRY: nvidia/tao/trafficcamnet
-MODEL_VERSION: pruned_v1.0.3  # pruned_v1.0.3 or unpruned_v1.0
+MODEL_VERSION: unpruned_v1.0  # pruned_v1.0.3 or unpruned_v1.0
 TRAIN_SPEC_FILE: detectnet_v2_train_resnet18_kitti.txt  # placeholder for now
 KEY: tlt_encode
 NUM_GPUS: 1
 
 # testing data variables
 # spec file goes under notebooks/trafficcamnet/specs/
-INFERENCE_SPEC_FILE: trafficcamnet_pruned_inference_kitti_etlt.txt  # trafficcamnet_pruned_inference_kitti_etlt.txt or trafficcamnet_unpruned_inference_kitti_tlt.txt
+INFERENCE_SPEC_FILE: trafficcamnet_unpruned_inference_kitti_tlt.txt  # trafficcamnet_pruned_inference_kitti_etlt.txt or trafficcamnet_unpruned_inference_kitti_tlt.txt
