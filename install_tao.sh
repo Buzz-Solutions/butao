@@ -16,10 +16,12 @@ fi
 echo "Extracting the getting started package..."
 unzip -u $outfile -d "./getting_started_v${version}" && rm -f $outfile
 
+cd getting_started_v${version}
+
 echo "Installing the getting started package..."
-bash getting_started_v${version}/setup/quickstart_launcher.sh --install
+bash setup/quickstart_launcher.sh --install
 
 echo "Upgrading the getting started package..."
-bash getting_started_v${version}/setup/quickstart_launcher.sh --upgrade
+bash setup/quickstart_launcher.sh --upgrade
 
 echo "Done!"
