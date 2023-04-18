@@ -30,11 +30,11 @@ The following is a condensed version of [NVIDIA's quickstart guide](https://docs
 - Click on Generate API Key.
 - Copy the API key and save it in a secure location.
 #### Log in to the NGC docker registry:
-Run `docker login nvcr.io` and enter the following credentials:
-- Username: "$oauthtoken"
-- Password: "YOUR_NGC_API_KEY"
-
-where YOUR_NGC_API_KEY corresponds to your key.
+Run `docker login nvcr.io` and enter the following credentials. For the username, enter '$oauthtoken' exactly as shown. It is a special authentication token for all users.
+```
+Username: $oauthtoken
+Password: <YOUR NGC API KEY>
+```
 
 ### Install TAO
 Check for the latest version of the getting started package here:
