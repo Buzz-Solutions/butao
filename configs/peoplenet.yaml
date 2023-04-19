@@ -1,0 +1,104 @@
+# environment variables
+TAO_MODEL_NAME: peoplenet
+TAO_BASE_MODEL: detectnet_v2
+USER_WORKSPACE_DIR: /workspace/tao-experiments
+CLEARML_LOGGED_IN: False
+WANDB_API_KEY: # set this to your wandb api key if you want to use wandb
+
+# training data variables
+# spec file goes under notebooks/peoplenet/specs/
+URL_IMAGES: None
+URL_LABELS: None
+DATA_SPEC_FILE: detectnet_v2_tfrecords_kitti_trainval.txt  # placeholder for now
+KITTI_FORMAT: None
+
+# model variables
+# check the model zoo for the correct model type: https://catalog.ngc.nvidia.com/models
+# spec file goes under notebooks/peoplenet/specs/
+NGC_REGISTRY: nvidia/tao/peoplenet
+MODEL_VERSION: trainable_v2.6  # options listed below
+TRAIN_SPEC_FILE: detectnet_v2_train_resnet18_kitti.txt  # placeholder for now
+KEY: tlt_encode
+NUM_GPUS: 2
+
+# testing data variables
+# spec file goes under notebooks/peoplenet/specs/
+INFERENCE_SPEC_FILE: peoplenet_unpruned_inference_kitti_tlt.txt  # peoplenet_pruned_inference_kitti_etlt.txt or peoplenet_unpruned_inference_kitti_tlt.txt
+
+
+# +-------+-------+-------+-------+-------+-------+-------+-------+-------+
+# | Versi | Accur | Epoch | Batch | GPU   | Memor | File  | Statu | Creat |
+# | on    | acy   | s     | Size  | Model | y Foo | Size  | s     | ed    |
+# |       |       |       |       |       | tprin |       |       | Date  |
+# |       |       |       |       |       | t     |       |       |       |
+# +-------+-------+-------+-------+-------+-------+-------+-------+-------+
+# | unpru | 86.0  | 120   | 1     | V100  | 85.3  | 85.29 | UPLOA | Aug   |
+# | ned_v |       |       |       |       |       | MB    | D_COM | 24,   |
+# | 2.1   |       |       |       |       |       |       | PLETE | 2021  |
+# | unpru | 84.3  | 120   | 1     | V100  | 173.8 | 173.7 | UPLOA | Aug   |
+# | ned_v |       |       |       |       |       | 7 MB  | D_COM | 24,   |
+# | 2.0   |       |       |       |       |       |       | PLETE | 2021  |
+# | unpru | 83.0  | 120   | 1     | V100  | 85.3  | 85.3  | UPLOA | Aug   |
+# | ned_v |       |       |       |       |       | MB    | D_COM | 24,   |
+# | 1.0   |       |       |       |       |       |       | PLETE | 2021  |
+# | train | 86.0  | 120   | 1     | V100  | 85.5  | 85.51 | UPLOA | May   |
+# | able_ |       |       |       |       |       | MB    | D_COM | 25,   |
+# | v2.6  |       |       |       |       |       |       | PLETE | 2022  |
+# | train | 86.0  | 120   | 1     | V100  | 85.3  | 85.29 | UPLOA | Nov   |
+# | able_ |       |       |       |       |       | MB    | D_COM | 23,   |
+# | v2.5  |       |       |       |       |       |       | PLETE | 2021  |
+# | prune | 86.0  | 120   | 1     | V100  | 8.5   | 8.53  | UPLOA | Nov   |
+# | d_v2. |       |       |       |       |       | MB    | D_COM | 23,   |
+# | 3     |       |       |       |       |       |       | PLETE | 2021  |
+# | prune | 86.0  | 120   | 1     | V100  | 7.8   | 7.82  | UPLOA | Aug   |
+# | d_v2. |       |       |       |       |       | MB    | D_COM | 24,   |
+# | 1     |       |       |       |       |       |       | PLETE | 2021  |
+# | prune | 84.3  | 120   | 1     | V100  | 20.9  | 20.9  | UPLOA | Aug   |
+# | d_v2. |       |       |       |       |       | MB    | D_COM | 24,   |
+# | 0     |       |       |       |       |       |       | PLETE | 2021  |
+# | prune | 83.0  | 120   | 1     | V100  | 11.3  | 11.3  | UPLOA | Aug   |
+# | d_v1. |       |       |       |       |       | MB    | D_COM | 24,   |
+# | 0     |       |       |       |       |       |       | PLETE | 2021  |
+# | prune | 86.0  | 120   | 1     | V100  | 8.5   | 8.54  | UPLOA | Dec   |
+# | d_qua |       |       |       |       |       | MB    | D_COM | 09,   |
+# | ntize |       |       |       |       |       |       | PLETE | 2022  |
+# | d_v2. |       |       |       |       |       |       |       |       |
+# | 3.2   |       |       |       |       |       |       |       |       |
+# | prune | 86.0  | 120   | 1     | V100  | 8.5   | 8.54  | UPLOA | Nov   |
+# | d_qua |       |       |       |       |       | MB    | D_COM | 23,   |
+# | ntize |       |       |       |       |       |       | PLETE | 2021  |
+# | d_v2. |       |       |       |       |       |       |       |       |
+# | 3     |       |       |       |       |       |       |       |       |
+# | prune | 86.0  | 120   | 1     | V100  | 7.8   | 7.83  | UPLOA | Oct   |
+# | d_qua |       |       |       |       |       | MB    | D_COM | 26,   |
+# | ntize |       |       |       |       |       |       | PLETE | 2021  |
+# | d_v2. |       |       |       |       |       |       |       |       |
+# | 1.1   |       |       |       |       |       |       |       |       |
+# | prune | 86.0  | 120   | 1     | V100  | 7.8   | 7.83  | UPLOA | Aug   |
+# | d_qua |       |       |       |       |       | MB    | D_COM | 24,   |
+# | ntize |       |       |       |       |       |       | PLETE | 2021  |
+# | d_v2. |       |       |       |       |       |       |       |       |
+# | 1     |       |       |       |       |       |       |       |       |
+# | deplo | 86.0  | 120   | 1     | V100  | 85.0  | 85.03 | UPLOA | Dec   |
+# | yable |       |       |       |       |       | MB    | D_COM | 09,   |
+# | _quan |       |       |       |       |       |       | PLETE | 2022  |
+# | tized |       |       |       |       |       |       |       |       |
+# | _v2.6 |       |       |       |       |       |       |       |       |
+# | .1    |       |       |       |       |       |       |       |       |
+# | deplo | 86.0  | 120   | 1     | V100  | 85.0  | 85.03 | UPLOA | May   |
+# | yable |       |       |       |       |       | MB    | D_COM | 25,   |
+# | _quan |       |       |       |       |       |       | PLETE | 2022  |
+# | tized |       |       |       |       |       |       |       |       |
+# | _v2.6 |       |       |       |       |       |       |       |       |
+# | deplo | 86.0  | 120   | 1     | V100  | 85.0  | 85.03 | UPLOA | Dec   |
+# | yable |       |       |       |       |       | MB    | D_COM | 09,   |
+# | _quan |       |       |       |       |       |       | PLETE | 2022  |
+# | tized |       |       |       |       |       |       |       |       |
+# | _v2.5 |       |       |       |       |       |       |       |       |
+# | .2    |       |       |       |       |       |       |       |       |
+# | deplo | 86.0  | 120   | 1     | V100  | 85.0  | 85.03 | UPLOA | Nov   |
+# | yable |       |       |       |       |       | MB    | D_COM | 23,   |
+# | _quan |       |       |       |       |       |       | PLETE | 2021  |
+# | tized |       |       |       |       |       |       |       |       |
+# | _v2.5 |       |       |       |       |       |       |       |       |
+# +-------+-------+-------+-------+-------+-------+-------+-------+-------+
