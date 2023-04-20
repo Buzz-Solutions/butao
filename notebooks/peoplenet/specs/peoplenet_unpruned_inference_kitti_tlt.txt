@@ -21,7 +21,7 @@ bbox_handler_config{
   disable_overlay: false
   overlay_linewidth: 2
   classwise_bbox_handler_config{
-    key:"car"
+    key:"person"
     value: {
       confidence_model: "aggregate_cov"
       output_map: "person"
@@ -39,7 +39,7 @@ bbox_handler_config{
     }
   }
   classwise_bbox_handler_config{
-    key:"person"
+    key:"bag"
     value: {
       confidence_model: "aggregate_cov"
       output_map: "bag"
@@ -60,6 +60,7 @@ bbox_handler_config{
     key:"face"
     value: {
       confidence_model: "aggregate_cov"
+      output_map: "face"
       bbox_color{
         R: 0
         G: 0
