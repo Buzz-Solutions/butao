@@ -91,7 +91,7 @@ postprocessing_config {
   }
 }
 model_config {
-  pretrained_model_file: "/workspace/tao-experiments/detectnet_v2/pretrained_resnet18/pretrained_detectnet_v2_vresnet18/resnet18.hdf5"
+  pretrained_model_file: "/workspace/tao-experiments/peoplenet/peoplenet_vtrainable_v2.6/resnet34_peoplenet.tlt"
   num_layers: 18
   use_batch_norm: true
   objective_set {

@@ -1,4 +1,7 @@
-def get_value_from_spec(spec_file: str, key: str):
+from pathlib import Path
+
+
+def get_spec_value(spec_file: str, key: str):
     """Gets the value for a given key in a spec file
 
     Parameters
@@ -27,7 +30,7 @@ def get_value_from_spec(spec_file: str, key: str):
     return value, key_line
 
 
-def adjust_spec(spec_file: str, key: str, new_value):
+def set_spec_value(spec_file: str, key: str, new_value):
     """Changes the value for a given key in a spec file
 
     Parameters
@@ -38,7 +41,7 @@ def adjust_spec(spec_file: str, key: str, new_value):
     new_value : str
         New value for the given key
     """
-    old_value, key_line = get_value_from_spec(spec_file, key)
+    old_value, key_line = get_spec_value(spec_file, key)
 
     # replace value
     key_line_adj = key_line.replace(": " + str(old_value), ": " + str(new_value))
@@ -54,3 +57,9 @@ def adjust_spec(spec_file: str, key: str, new_value):
             f.write(line)
 
     print(f"Changed value for {key} from {old_value} to {new_value}")
+
+
+def get_model_fn_from_dir(folder_path):
+    for file_path in Path(folder_path).glob("*"):
+        if file_path.suffix in [".tlt", ".etlt", ".hdf5"]:
+            return file_path.name

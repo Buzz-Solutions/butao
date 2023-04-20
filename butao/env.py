@@ -121,7 +121,7 @@ class TaoEnv:
                 [{"variable": "WANDB_API_KEY", "value": WANDB_API_KEY}]
             )
 
-        print("Writing mounts file to: ", mounts_file)
+        print("\nWriting mounts file to:", mounts_file)
         print(drive_map)
 
         with open(mounts_file, "w") as mfile:

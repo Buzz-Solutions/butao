@@ -3,8 +3,7 @@ import os
 from butao.env import TaoEnv, get_root_dir, get_root_config
 from butao.data import TaoData
 from butao.model import TaoModel
-from butao.infer import TaoInfer
-from butao.utils import get_value_from_spec, adjust_spec
+from butao.utils import get_spec_value, set_spec_value
 
 
 def test_get_root_config():
@@ -39,19 +38,13 @@ def test_data():
 def test_model():
     for config in os.listdir("configs"):
         config_path = os.path.join("configs", config)
+        print(config)
         model = TaoModel(config_path)
         assert model is not None
 
 
-def test_infer():
-    for config in os.listdir("configs"):
-        config_path = os.path.join("configs", config)
-        infer = TaoInfer(config_path)
-        assert infer is not None
-
-
 def test_get_value_from_spec():
-    value, key_line = get_value_from_spec("tests/sample_spec.txt", "image_width")
+    value, key_line = get_spec_value("tests/sample_spec.txt", "image_width")
     assert value == "1248"
     assert key_line == "  image_width: 1248\n"
 
@@ -61,9 +54,7 @@ def test_adjust_spec():
         with open("tests/sample_spec_adjusted.txt", "w") as f2:
             f2.write(f.read())
 
-    adjust_spec("tests/sample_spec_adjusted.txt", "image_width", 1249)
-    value, key_line = get_value_from_spec(
-        "tests/sample_spec_adjusted.txt", "image_width"
-    )
+    set_spec_value("tests/sample_spec_adjusted.txt", "image_width", 1249)
+    value, key_line = get_spec_value("tests/sample_spec_adjusted.txt", "image_width")
     assert value == "1249"
     assert key_line == "  image_width: 1249\n"

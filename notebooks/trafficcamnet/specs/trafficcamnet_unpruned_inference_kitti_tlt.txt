@@ -14,7 +14,7 @@ inferencer_config{
   gpu_index: 0
   # model handler config
   tlt_config{
-    model: "/workspace/tao-experiments/trafficcamnet/pretrained_vunpruned_v1.0/trafficcamnet_vunpruned_v1.0/resnet18_trafficcamnet.tlt"
+    model: "/workspace/tao-experiments/trafficcamnet/trafficcamnet_vunpruned_v1.0/resnet18_trafficcamnet.tlt"
   }
 }
 bbox_handler_config{
