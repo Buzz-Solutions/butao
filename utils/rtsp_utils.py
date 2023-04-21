@@ -12,9 +12,9 @@ def get_stream(
     url: str,
     show: bool = True,
     save: bool = False,
-    width: int = 1920,
-    height: int = 1084,
-    downsamp: int = 2,
+    width: int = None,
+    height: int = None,
+    downsamp: int = 1,
     timeout: float = 30,
 ):
     """Get a stream from an IP camera and save it to a file.
@@ -26,11 +26,9 @@ def get_stream(
         show (bool, optional): Show the stream. Defaults to True.
         save (bool, optional): Save the stream to a file. Defaults to False.
         width (int, optional): Width of the stream. Will resize stream accordingly.
-         Defaults to 1920.
         height (int, optional): Height of the stream. Will resize stream accordingly.
-         Defaults to 1084.
         downsamp (int, optional): Downsampling factor for resizing stream.
-         Only used if width or height is not specified. Defaults to 2.
+         Only used if width or height is not specified.
         timeout (float, optional): Timeout for the stream (in minutes). Defaults to 30.
 
     Returns:
@@ -54,14 +52,19 @@ def get_stream(
     timeout_frames = int(timeout * 60 * fps)
     print(f"INFO: Timing out in {timeout} minutes ({timeout_frames} frames)")
 
-    # create a function to resize each frame
-    if width is None or height is None:
+    if width is not None and height is not None:
+        print(f"Resizing stream from {input_width}x{input_height} to {width}x{height}")
+    elif downsamp != 1:
         width = int(input_width // downsamp)
         height = int(input_height // downsamp)
         print(
-            "INFO: No width or height given."
-            "Resizing stream to {width}x{height} (downsamp={downsamp})"
+            f"INFO: No width or height given."
+            f"Resizing stream to {width}x{height} (downsamp={downsamp})"
         )
+    else:
+        width = input_width
+        height = input_height
+        print(f"Image dimensions {width}x{height}")
 
     resize_frame = lambda in_frame: cv2.resize(in_frame, (width, height))
 

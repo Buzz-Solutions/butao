@@ -26,7 +26,7 @@ def resample_image(
         if width is not None and height is not None:
             new_size = (width, height)
         else:
-            new_size = (im.width // factor, im.height // factor)
+            new_size = (im.width * factor, im.height * factor)
 
         print(f"INFO: Resizing image from {im.size} to {new_size}")
         im_resized = im.resize((width, height))
