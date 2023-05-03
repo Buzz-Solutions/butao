@@ -1,3 +1,5 @@
+![CI](https://github.com/Buzz-Solutions/butao/actions/workflows/test.yml/badge.svg)
+
 # butao
 BUzz TAO tools
 
