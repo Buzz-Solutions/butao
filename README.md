@@ -3,15 +3,15 @@
 # butao
 BUzz TAO tools
 
-NVIDIA TAO (previously named TLT) is the SDK that nvidia provides for building AI applications using transfer learning.
+This is a package to simplify the workflows that run on on Nvidia's TAO SDK. Some benefits:
+- *Simplifies dependency management*. Moves all install steps from notebook cells into a requirements and setup file.
+- *Eliminates code duplications*. Aims to use one notebook for N models, not N notebooks for N models.
+- *Focuses on workflows, not settings*. Moves all environment variables and model configurations from notebook cells into .yml config files
+- *Centralized documentation*. This page tries to condense all the relevant links to get started with any pre-trained TAO model (please open an issue if any links to resources are missing).
 
-It allows you to access pre-trained models stored on NGC (NVIDIA GPU Cloud) and retrain them.
+## Brief TAO explainer:
 
-The SDK runs on pre-built, containerized applications that manage most of the low-level dependencies. These can be executed on command-line or through a notebook.
-
-The SDK is built on top of the NVIDIA Deep Learning Frameworks (NVIDIA DL Frameworks) and NVIDIA CUDA-X AI libraries.
-
-For deployment, models integrate with NVIDIA DeepSream SDK and NVIDIA Triton Inference Server.
+NVIDIA TAO (previously named TLT) is the SDK that nvidia provides for building AI applications using transfer learning. It allows you to access pre-trained models stored on NGC (NVIDIA GPU Cloud) and retrain them. The SDK runs on pre-built, containerized applications that manage most of the low-level dependencies. These can be executed on command-line or through a notebook. The SDK is built on top of the NVIDIA Deep Learning Frameworks (NVIDIA DL Frameworks) and NVIDIA CUDA-X AI libraries. For deployment, models integrate with NVIDIA DeepSream SDK and NVIDIA Triton Inference Server.
 
 ## Install butao
 
