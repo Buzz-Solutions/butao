@@ -21,12 +21,12 @@ def get_spec_value(spec_file: str, key: str):
         lines = f.readlines()
 
     # get line with key
-    key_line = [line for line in lines if key + ":" in line]
+    key_line = [line for line in lines if key + ":" == line.split()[0]]
     assert len(key_line) == 1
     key_line = key_line[0]
 
     # get value
-    value = key_line.split(" ")[-1].strip()
+    value = key_line.split()[-1]
     return value, key_line
 
 

@@ -140,7 +140,7 @@ class TaoModel(TaoEnv):
             )
         elif self.model_fn.endswith(".tlt"):
             set_spec_value(
-                self.local_inference_spec, "tlt_model", self.user_model_fp_quoted
+                self.local_inference_spec, "model", self.user_model_fp_quoted
             )
         else:
             raise ValueError("Model file must be .etlt or .tlt")
