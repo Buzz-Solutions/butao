@@ -123,17 +123,21 @@ def get_video_frame(
     time_stamp: float,
     output_name: str = None,
     show: bool = True,
-    save: bool = True,
+    save: str = "jpg",
+    repeat_frames: int = 1,
 ):
     """Get a frame from a video at a given time stamp.
 
     Args:
         video (str): Path to the video file.
         time_stamp (float): Time stamp (in seconds) of the frame to be extracted.
-        output_name (str, optional): Path to the output image file (without extension)
+        output_name (str, optional): Path to the output image file (without extension).
          Defaults to video file + time stamp
         show (bool, optional): Show the frame. Defaults to True.
-        save (bool, optional): Save the frame to a file. Defaults to True.
+        save (str, optional): Save the frame to a file. Defaults to jpg.
+         Options are jpg, png, and mp4
+        repeat_frames (int, optional): Number of times to repeat the frame in the
+         created video. Only enabled if save set to mp4. Defaults to 1.
 
     Returns:
         None
@@ -147,10 +151,21 @@ def get_video_frame(
     if output_name is None:
         output_name = Path(video).with_suffix("").as_posix() + f"_{time_stamp}s"
 
-    if save:
+    if save and (save == "jpg" or save == "png"):
         img = Image.fromarray(frame)
         img.save(output_name + ".png", format="PNG")
         img.save(output_name + ".jpg", format="JPEG")
+
+    elif save and save == "mp4":
+        height, width, _ = frame.shape
+        fourcc = cv2.VideoWriter_fourcc(*"mp4v")  # codec
+        out = cv2.VideoWriter(output_name + ".mp4", fourcc, clip.fps, (width, height))
+
+        # Write the frame to the video file n times
+        for _ in range(repeat_frames):
+            out.write(frame)
+
+        out.release()
 
     if show:
         while True:
